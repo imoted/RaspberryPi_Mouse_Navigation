@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <arg name="scan_topic" default="/scan" />
+  <arg name="odom_topic" default="/odom" />
+  <!-- <arg name="arg_frame_id" default="lidar_link"/> -->
+  
+  <!-- <node pkg="tf" type="static_transform_publisher" name="imu_link_connect" args="0 0 0 0 0 0 /imu_link /base_imu_link 100"/> -->
+
+  <node name="cartographer_node" pkg="cartographer_ros"
+      type="cartographer_node" args="
+          -configuration_directory $(find raspimouse_navigation)/config
+          -configuration_basename raspimouse.lua"
+      output="screen">
+    <remap from="echoes" to="horizontal_laser_2d" />
+  </node>
+
+  <include file="$(find raspimouse_navigation)/launch/move_base.launch"/>
+  
+  <include file="$(find ydlidar_ros)/launch/lidar.launch">
+    <arg name="arg_frame_id" value="lidar_link"/>
+  </include>
+
+  <!-- <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros"
+      type="cartographer_occupancy_grid_node" args="-resolution 0.05" /> -->
+  <!-- <node name="trajectory_extractor" pkg="raspimouse_navigation" type="trajectory_extractor"  output="screen" required="true" /> -->
+</launch>
+
