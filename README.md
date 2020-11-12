@@ -3,7 +3,7 @@
 
 ## what you can do?
 
- you can use move_base and lidar and cartgrapher
+ you can use move_base and lidar and cartgrapher on raspberrypi mouse (https://rt-net.jp/mobility/products/raspberry-pi-mouse)
 
 ## Requirements
 
